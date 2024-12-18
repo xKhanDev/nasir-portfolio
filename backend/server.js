@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import dashboaredRouter from "./routes/dashboared.routes.js"
 import connectDB from './db/db.js';
+import protectRoute from "./middlewares/protectRoute.js";
 
 const port = process.env.PORT || 8000;
 
@@ -13,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.use("/dashboared",dashboaredRouter);
+app.use("/dashboared",protectRoute,dashboaredRouter);
 
 app.listen(port,(req,res)=>{
     connectDB();
