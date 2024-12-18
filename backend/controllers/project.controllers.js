@@ -49,9 +49,14 @@ export const editProject = async (req, res) => {
     }
 
     try{
+        const projectImage = req.file?.projectImage?.path;
+        console.log("PROJECT IMAGE IS THIS PATH:",projectImage);
+        const result = await uploadOnCloudinary(projectImage);
+        if(!result) return res.status(500).json({message:"Internal server error"});
+
         const project = await Project.findByIdAndUpdate(projectId,
         {
-            title,description,githubLink,previewLink,category
+            title,description,githubLink,previewLink,category,image:result.url
         },{new:true});
 
         return res.status(200).json({project,message:"project updated successfully"});    
