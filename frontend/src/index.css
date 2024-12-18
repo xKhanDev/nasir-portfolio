@@ -1,3 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Inconsolata", monospace;
+  background-color: #050736;
+  background-image: radial-gradient(at 12% 26%, #0a1b50 0px, transparent 50%),
+    radial-gradient(at 48% 55%, #0a344d 0px, transparent 50%),
+    radial-gradient(at 28% 95%, #2e0f48 0px, transparent 50%),
+    radial-gradient(at 42% 60%, #0d4a4a 0px, transparent 50%),
+    radial-gradient(at 62% 19%, #42084e 0px, transparent 50%),
+    radial-gradient(at 79% 79%, #0d144a 0px, transparent 50%);
+}
+
+.s_text {
+  color: #70e7d6;
+}
+
+.card_bg {
+  background-color: #58609b;
+}
+.card_img_bg {
+  background-color: #58629d;
+}
