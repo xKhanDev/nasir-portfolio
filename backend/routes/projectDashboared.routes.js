@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { deleteProject, editProject, getProjects, uploadProject } from "../controllers/project.controllers";
+import upload from "../middlewares/multer";
 
 const router = Router();
 
 router.get("/",getProjects);
-router.post("/upload",uploadProject);
-router.put("/edit/:id",editProject);
+router.post("/upload",upload.single("projectImage"),uploadProject);
+router.put("/edit/:id",upload.single("projectImage"),editProject);
 router.delete("/delete/:id",deleteProject);
 
 export default router;
