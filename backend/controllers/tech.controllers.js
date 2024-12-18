@@ -1,5 +1,7 @@
 import Tech from "../models/tech.models.js";
 import uploadOnCloudinary from "../utils/cloudinary.js"
+import fileDeletion from "../utils/fileDeletion.js";
+
 // GET TECH
 export const getTechs = async (req, res) => {
     try {
@@ -22,16 +24,18 @@ export const uploadTech = async (req, res) => {
     if(!name || !category) return res.status(400).json({message:"Name and category are required"});
 
     try{
-        const existedTech = await Tech.find({name});
+        const existedTech = await Tech.findOne({name});
 
         if(existedTech) return res.status(400).json({message:"Tech already exists"});
 
-        const techImage = req.file?.techImage?.path;
-        console.log("TECH IMAGE IS THIS PATH:",techImage);
+        const techImage = req.files?.techImage?.[0]?.path;
+        if(!techImage) return res.status(400).json({message:"Tech image is required"});
+        
         const result = await uploadOnCloudinary(techImage)
-        if(!result) return res.status(500).json({message:"Internal server error"});
+        if(!result) return res.status(500).json({message:"Error while uploading on cloudinary"});
+        fileDeletion(techImage);
 
-        const tech = await Tech.create({name,category,image:result.url});
+        const tech = await Tech.create({name,category,image:result?.url});
 
         return res.status(201).json({tech,message:"tech uploaded successfully"});
 

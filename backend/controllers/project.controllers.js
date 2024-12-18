@@ -1,5 +1,7 @@
 import Project from "../models/project.model.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
+import fileDeletion from "../utils/fileDeletion.js";
+import fileDelection from "../utils/fileDeletion.js";
 
 // GET PROJECT
 export const getProjects = async (req, res) => {
@@ -24,12 +26,20 @@ export const uploadProject = async (req, res) => {
     }
 
     try {
-        const projectImage = req.file?.projectImage?.path;
-        console.log("PROJECT IMAGE IS THIS PATH:",projectImage);
-        const result = await uploadOnCloudinary(projectImage)
-        if(!result) return res.status(500).json({message:"Internal server error"});
+        const  projectImageLocalPath = req.files?.projectImage?.[0].path;
+        const projectImage = await uploadOnCloudinary(projectImageLocalPath)
+        if(!projectImage) return res.status(500).json({message:"Internal server error"});
+        fileDelection(projectImageLocalPath);
 
-        const project = await Project.create({title,description,image:result.url,githubLink,previewLink,category});
+        const project = await Project.create(
+            {
+                title,
+                description,
+                image:projectImage?.url,
+                githubLink,
+                previewLink,
+                category
+            });
 
         return res.status(201).json({project,message:"project uploaded successfully"});
 
@@ -44,19 +54,31 @@ export const editProject = async (req, res) => {
     const {title,description,githubLink,previewLink,category} = req.body;
     const projectId = req.params.id;
 
+    const checkProject = await Project.findById(projectId);
+    if(!checkProject) return res.status(404).json({message:"Project not found"});
+
     if([title,description,githubLink,previewLink,category].some(field => field?.trim() === "")){
         return res.status(400).json({message:"All fields are required"});
     }
 
     try{
-        const projectImage = req.file?.projectImage?.path;
-        console.log("PROJECT IMAGE IS THIS PATH:",projectImage);
-        const result = await uploadOnCloudinary(projectImage);
-        if(!result) return res.status(500).json({message:"Internal server error"});
+        let projectImageLocalPath = req.files?.projectImage?.[0]?.path;
+        let projectImage = null;
+        if(projectImageLocalPath){
+            console.log("PROJECT IMAGE IS THIS PATH:",projectImageLocalPath);
+            projectImage = await uploadOnCloudinary(projectImageLocalPath);
+            if(!projectImage) return res.status(500).json({message:"Error uploading project image"});
+            fileDeletion(projectImageLocalPath);
+        }
 
         const project = await Project.findByIdAndUpdate(projectId,
         {
-            title,description,githubLink,previewLink,category,image:result.url
+            title,
+            description,
+            githubLink,
+            previewLink,
+            category,
+            image: projectImage ? projectImage?.url : checkProject?.image
         },{new:true});
 
         return res.status(200).json({project,message:"project updated successfully"});    
