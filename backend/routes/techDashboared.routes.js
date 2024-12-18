@@ -1,6 +1,6 @@
 import {Router} from "express";
 
-import { getTechs, uploadTech } from "../controllers/tech.controllers";
+import { getTechs, uploadTech } from "../controllers/tech.controllers.js";
 import upload from "../middlewares/multer.js";
 
 const router = Router();

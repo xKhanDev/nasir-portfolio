@@ -4,12 +4,10 @@ const userSchema = new mongoose.Schema({
     username:{
         type: String,
         unique: true,
-        required: true
     },
     email:{
         type: String,
         unique: true,
-        required: true
     },
     walletAddress:{
         type: String,
@@ -17,7 +15,6 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type: String,
-        required: true
     }
 },{timestamps: true});
 

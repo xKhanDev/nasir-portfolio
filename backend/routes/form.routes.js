@@ -31,9 +31,10 @@ router.post("/contact_us",async(req,res)=>{
             message
         });
     
-        if(!contact) return res.status(500).json({message:"Internal server error"});
+        if(!contact) return res.status(500).json({message:"Error while creating contact"});
     
-        return res.status(200).json({message:"success"});
+        return res.status(200).json({
+            contact,message:"Message sent successfully"});
     } catch (error) {
         console.log("ERROR IN CONTACT US",error.message);
     }
