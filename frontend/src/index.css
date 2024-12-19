@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Pacifico&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,13 +13,15 @@ body {
     radial-gradient(at 62% 19%, #42084e 0px, transparent 50%),
     radial-gradient(at 79% 79%, #0d144a 0px, transparent 50%);
 }
-
+.logo {
+  font-family: "Pacifico", cursive;
+}
 .s_text {
   color: #70e7d6;
 }
 
 .card_bg {
-  background-color: #1F325E;
+  background-color: #1f325e;
 }
 .card_img_bg {
   background-color: #58629d;

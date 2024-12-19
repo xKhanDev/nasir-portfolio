@@ -1,9 +1,10 @@
 import React from "react";
+import { Navbar } from "./features/constant";
 
 const App = () => {
   return (
     <div>
-      <h2 className="text-3xl font-bold">~App/Home</h2>
+      <Navbar />
     </div>
   );
 };
