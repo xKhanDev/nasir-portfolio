@@ -2,10 +2,12 @@ import React from "react";
 
 const TechCard = () => {
   return (
-    <div className="w-[20%] flex flex-col justify-center rounded-lg border-white border-[1px] p-4">
-      <img src="/pr.svg" alt="" className="w-full my-3" />
+    <div className="rounded-lg border-white border-[1px] p-3 bg-[#1f325e]">
+      <img src="/pr.svg" alt="" className="w-full rounded-lg" />
       <span className="w-full bg-white h-[1px]"></span>
-      <h3 className="text-3xl font-semibold capitalize mt-4">Javascript</h3>
+      <h3 className="text-xl md:text-2xl lg:text-2xl font-semibold capitalize mt-4">
+        Javascript
+      </h3>
       <span className="hover:text-yellow-300">Expert</span>
     </div>
   );

@@ -26,3 +26,12 @@ body {
 .card_img_bg {
   background-color: #58629d;
 }
+.text-line-height{
+  line-height: 1;
+  word-spacing: 2px;
+}
+
+.live:hover .arrow {
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(-360deg);
+}
