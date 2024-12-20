@@ -1,6 +1,15 @@
 import React from "react";
+import useAuthStore from "../../../zustand/useAuth";
 
 const Login = () => {
+  const [walletAddress, setWalletAddress] = useState("");
+  const [input, setInput] = useState({
+    identifier: "",
+    password: "",
+  });
+  const setUser = useAuthStore((state) => state.setUser);
+  const setAccessToken = useAuthStore((state) => state.setAccessToken);
+
   return (
     <div className="container h-screen flex flex-col justify-center items-center">
       <div className="w-full max-w-xs lg:w-1/2 border-white border-2 rounded-lg p-4">

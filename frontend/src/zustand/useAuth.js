@@ -1,8 +1,13 @@
 import {create} from "zustand";
 
-const useAuth = create((set)=>({
+const useAuthStore = create((set)=>({
+    accessToken: null,
     user: null,
-    setUser: (user) => set({user})
+    setAccessToken: (token) => set({ accessToken: token }),
+    setUser: (user) => set({ user })
 }))
 
-export default useAuth
+export default useAuthStore
+
+// TO GET THE ABOVE STATE
+// const accessToken = useAuthStore((state) => state.accessToken);

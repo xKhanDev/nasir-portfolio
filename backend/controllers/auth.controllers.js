@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-
 import User from "../models/user.models.js";
+import { generateAccessToken, generateRefreshToken } from "../utils/generateToken.js";
 
 export const connectWallet = async(req,res)=>{
     const {walletAddress} = req.body;
@@ -10,9 +10,11 @@ export const connectWallet = async(req,res)=>{
         const user = await User.findOne({walletAddress});
         if(!user) return res.status(404).json({message:"User not found"});
 
-        const accessToken = jwt.sign({userId:user?._id},process.env.ACCESS_TOKEN_SECRET,{
-            expiresIn:"1d"
-        });
+        const accessToken = generateAccessToken(user);
+        const refreshToken = generateRefreshToken(user);
+
+        user.refreshToken = refreshToken;
+        await user.save();
     
         const options = {
             httpOnly: true,
@@ -21,8 +23,8 @@ export const connectWallet = async(req,res)=>{
         }
     
         res
-        .cookie("accessToken",accessToken,options)
-        .status(200).json({message:"Wallet connected successfully",user});
+        .cookie("refreshToken",refreshToken,options)
+        .status(200).json({user,accessToken});
 
     } catch (error) {
         console.log("ERROR IN CONNECT WALLET",error.message);
