@@ -12,9 +12,7 @@ const Navbar = () => {
     <nav className="relative w-full h-16 border-b-[1px] text-white md:px-4 lg:px-12 bg-[#050736]/60 backdrop-blur-md shadow-lg">
       {/* This is a navbar for web */}
       <div className="w-full h-full flex justify-between items-center px-2">
-        <span className="logo md:text-2xl lg:text-2xl lg:font-bold">
-          xKhanDev
-        </span>
+        <span className="md:text-2xl lg:text-2xl lg:font-bold">xKhanDev</span>
         <button
           className="-mt-10 text-2xl lg:hidden"
           onClick={() => setOpen(!open)}

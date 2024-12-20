@@ -1,21 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-// name,image,category,level
+
 const UploadTech = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const handleSelectImage = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = setSelectedImage(URL.createObjectURL(file));
+    };
+    input.click();
+  };
   return (
     <div className="w-full h-screen bg-black opacity-60 flex flex-col items-center justify-center">
       <span className="absolute top-4 right-4 text-black bg-white z-20 rounded-full p-2 text-2xl cursor-pointer hover:bg-[#58629d] hover:text-white ease-in-out duration-200">
         <AiOutlineClose />
       </span>
       <div className="w-full md:w-[70%] lg:w-1/3 flex flex-col items-center gap-4 rounded-2xl border-gray-400 border-2 p-8 *:text-[18px]">
+        {selectedImage ? (
+          <img
+            src={selectedImage}
+            alt="Selected"
+            className="w-full h-40 object-cover"
+          />
+        ) : (
+          <span
+            className="w-full h-40 border-dashed border-2 p-4 flex justify-center items-center cursor-pointer"
+            onClick={handleSelectImage}
+          >
+            Select Image
+          </span>
+        )}
         <input
           type="text"
           placeholder="Enter name..."
           className="w-full input bg-transparent border-b-2 border-white"
         />
-        <span className="w-full h-40 border-dashed border-2 p-4 flex justify-center items-center cursor-pointer">
-          Select Image
-        </span>
         <label htmlFor="category" className="w-full">
           <select
             name="category"

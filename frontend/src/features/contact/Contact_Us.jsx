@@ -40,6 +40,9 @@ const Contact_Us = () => {
           Send <IoSend />
         </button>
       </form>
+      <div className="mt-16">
+        <span>All Right Reserved by safeer ullah @2024</span>
+      </div>
     </div>
   );
 };

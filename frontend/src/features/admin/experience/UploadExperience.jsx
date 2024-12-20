@@ -2,6 +2,18 @@ import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
 const UploadExperience = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const handleSelectImage = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = setSelectedImage(URL.createObjectURL(file));
+    };
+    input.click();
+  };
   return (
     <div className="w-full h-full bg-black opacity-60 flex flex-col items-center justify-center">
       <span className="absolute top-4 right-4 text-black bg-white z-20 rounded-full p-2 text-2xl cursor-pointer hover:bg-[#58629d] hover:text-white ease-in-out duration-200">
