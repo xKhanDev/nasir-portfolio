@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { ethers } from "ethers";
+import toast from "react-hot-toast";
+import axios from "axios";
 import useAuthStore from "../../../zustand/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [input, setInput] = useState({
     identifier: "",
@@ -9,6 +14,78 @@ const Login = () => {
   });
   const setUser = useAuthStore((state) => state.setUser);
   const setAccessToken = useAuthStore((state) => state.setAccessToken);
+  const navigate = useNavigate();
+
+  const connectWallet = async () => {
+    setLoading(true);
+    if (!window.ethereum) {
+      toast.error("Please install MetaMask");
+      setLoading(false);
+      return;
+    }
+
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const account = await provider.send("eth_requestAccounts", []);
+    const address = account[0];
+    setWalletAddress(address);
+    toast.success("Wallet connected successfully");
+    try {
+      console.log(walletAddress);
+      const response = await axios.post(
+        "/dashboared/auth/connect",
+        { walletAddress },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data?.error) throw new Error(response.data.error);
+      const { accessToken } = response.data;
+      setAccessToken(accessToken);
+      setUser(response.data);
+
+      toast.success("Login successfully");
+      navigate("/admin/dashboard");
+
+      setLoading(false);
+    } catch (error) {
+      toast.error(error.message);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogin = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    try {
+      const response = await axios.post("/dashboared/auth/login", input, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.data?.error) throw new Error(response.data.error);
+
+      const { accessToken } = response.data;
+      setAccessToken(accessToken);
+      setUser(response.data);
+
+      toast.success("Login successful");
+      navigate("/admin/dashboard");
+      setLoading(false);
+    } catch (error) {
+      toast.error(error.message);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="container h-screen flex flex-col justify-center items-center">
@@ -17,8 +94,12 @@ const Login = () => {
           Admin Login
         </h1>
         <form action="" className="mt-8 w-full flex flex-col gap-4">
-          <button className="w-full bg-[#58629d] py-2 h-12 rounded-lg transition hover:bg-white hover:text-[#58629d] duration-300 ease-in-out">
-            Connect Wallet
+          <button
+            className="w-full bg-[#58629d] py-2 h-12 rounded-lg transition hover:bg-white hover:text-[#58629d] duration-300 ease-in-out"
+            disabled={loading}
+            onClick={connectWallet}
+          >
+            {loading ? "Loading..." : "Connect Wallet"}
           </button>
           <div className="flex w-full items-center justify-between">
             <span className="w-full bg-white h-[1px] rounded-xl"></span>
@@ -27,16 +108,24 @@ const Login = () => {
           </div>
           <input
             type="email"
+            value={input.identifier}
             placeholder="Enter email..."
-            className="w-full bg-white rounded-lg input input-bordered"
+            className="w-full bg-white text-black rounded-lg input input-bordered"
+            onChange={(e) => setInput({ ...input, identifier: e.target.value })}
           />
           <input
             type="password"
+            value={input.password}
             placeholder="Enter password..."
-            className="w-full bg-white input input-bordered rounded-lg"
+            className="w-full bg-white input text-black input-bordered rounded-lg"
+            onChange={(e) => setInput({ ...input, password: e.target.value })}
           />
-          <button className="w-full bg-[#58629d] py-2 h-12 rounded-lg transition hover:bg-white hover:text-[#58629d] duration-300 ease-in-out">
-            Login
+          <button
+            className="w-full bg-[#58629d] py-2 h-12 rounded-lg transition hover:bg-white hover:text-[#58629d] duration-300 ease-in-out"
+            disabled={loading}
+            onClick={handleLogin}
+          >
+            {loading ? "Loading..." : "Login"}
           </button>
         </form>
       </div>

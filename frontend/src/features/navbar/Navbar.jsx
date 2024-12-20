@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { FaRegHandPointDown } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
+import useAuthStore from "../../zustand/useAuth";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const user = useAuthStore((state) => state.user);
 
   const handleScrollToSection = (sectionId) => {
     if (location.pathname !== "/") {
@@ -41,6 +43,7 @@ const Navbar = () => {
         >
           <FaRegHandPointDown title="Scroll Down" />
         </button>
+        {/* Web Navbar */}
         <ul className="hidden w-[50%] lg:flex justify-between items-center *:text-center">
           <li className="uppercase hover:border-b-2 border-[#70e7d6] ease-in-out duration-100 hover:-translate-y-[2px]">
             <a href="/" className="text-[18px] font-medium">
@@ -88,9 +91,22 @@ const Navbar = () => {
             </a>
           </li>
         </ul>
-        <button className="font-semibold py-2 px-6 lg:px-8 bg-transparent hover:bg-[#1f325e] ease-in-out duration-300 border-white border-[1px] rounded-3xl">
-          Admin
-        </button>
+        {user ? (
+          <button
+            className="font-semibold py-2 px-6 lg:px-8 bg-transparent hover:bg-[#1f325e] ease-in-out duration-300 border-white border-[1px] rounded-3xl"
+            onClick={() => navigate("/admin/dashboard")}
+          >
+            Admin
+          </button>
+        ) : (
+          <a
+            href="https://drive.google.com/file/d/1D1qVaL1C3hcBIn2tjpqBGA6Gs59AnopP/view?usp=drive_link"
+            target="_blank"
+            className="font-semibold py-2 px-6 lg:px-8 bg-transparent hover:bg-[#1f325e] ease-in-out duration-300 border-white border-[1px] rounded-3xl"
+          >
+            resume
+          </a>
+        )}
       </div>
 
       {/* Mobile Menu and Tablet Menu */}

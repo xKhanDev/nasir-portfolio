@@ -1,5 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import {
   About,
   Contact_Us,
@@ -12,6 +18,7 @@ import {
   Techs,
 } from "./features/constant";
 import { Dashboard, Login } from "./features/admin/constant";
+import useAuthStore from "./zustand/useAuth";
 
 const MainLayout = () => {
   return (
@@ -24,6 +31,7 @@ const MainLayout = () => {
         <Experience />
         <Projects />
         <Contact_Us />
+        <Toaster />
       </div>
     </div>
   );
@@ -41,12 +49,16 @@ const AboutLayout = () => {
 };
 
 const App = () => {
+  const user = useAuthStore((state) => state.user);
   return (
     <Router>
       <Routes>
         <Route path="/" element={<MainLayout />} />
         <Route path="/about" element={<AboutLayout />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route
+          path="/admin/dashboard"
+          element={user ? <Dashboard /> : <Navigate to="/admin/login" />}
+        />
         <Route path="/admin/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -26,7 +26,7 @@ const About = () => {
             </a>
             <a
               href="https://drive.google.com/file/d/1D1qVaL1C3hcBIn2tjpqBGA6Gs59AnopP/view?usp=drive_link"
-              download="Safeer_Ullah_Resume.pdf"
+              target="_blank"
               className="border-white border-2 py-2 px-4 rounded-xl"
             >
               Download CV
