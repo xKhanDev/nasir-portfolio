@@ -30,7 +30,10 @@ const Hero = () => {
   }, [setText]);
 
   return (
-    <section className="w-full flex justify-between gap-8 flex-col md:flex-row mt-16">
+    <section
+      className="w-full flex justify-between gap-8 flex-col md:flex-row mt-16"
+      id="home"
+    >
       <div className="w-full flex flex-col gap-4 lg:w-1/2 *:text-[60px] *:font-[600]">
         <span className="text-line-height">{text}</span>
         <h1 className="text-line-height">I'm Safeer Ullah</h1>

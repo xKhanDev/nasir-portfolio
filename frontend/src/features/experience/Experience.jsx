@@ -9,7 +9,7 @@ const Experience = () => {
   const description =
     "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias ut voluptatem dolore quo excepturi saepe ullam sit labore voluptatum veniam!";
   return (
-    <section>
+    <section id="experience">
       <Partition name={"~work/experience"} />
       <Experiences name={name} year={year} description={description} />
       <Experiences name={name} year={year} description={description} />

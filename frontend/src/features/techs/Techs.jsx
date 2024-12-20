@@ -4,7 +4,7 @@ import Partition from "../../components/Partition";
 
 const Techs = () => {
   return (
-    <section className="w-full flex flex-col gap-4">
+    <section className="w-full flex flex-col gap-4" id="techs">
       <Partition name="~/techs/❤️" />
       <h1 className="block text-3xl font-[700]">Languages:</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">

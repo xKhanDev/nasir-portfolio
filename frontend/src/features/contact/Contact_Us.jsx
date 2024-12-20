@@ -4,7 +4,7 @@ import { IoSend } from "react-icons/io5";
 
 const Contact_Us = () => {
   return (
-    <div className="w-full flex flex-col items-center gap-4 mb-4">
+    <div className="w-full flex flex-col items-center gap-4 mb-4" id="contact">
       <Partition name={"~/contact/get-in-touch"} />
       <form
         action=""

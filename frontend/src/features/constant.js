@@ -6,5 +6,6 @@ import Projects from "./projects/Projects";
 import Contact_Us from "./contact/Contact_Us";
 import Markee from "./markee/Markee";
 import Experience from "./experience/Experience";
+import NotFound from "./not_found/NotFound";
 
-export { Navbar, Hero, About, Techs, Projects, Contact_Us,Markee,Experience };
+export { Navbar, Hero, About, Techs, Projects, Contact_Us,Markee,Experience,NotFound };

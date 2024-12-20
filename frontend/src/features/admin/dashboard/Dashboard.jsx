@@ -1,5 +1,4 @@
 import React from "react";
-import Partition from "../../../components/Partition";
 
 const Dashboard = () => {
   return (
