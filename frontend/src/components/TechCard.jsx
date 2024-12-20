@@ -1,4 +1,5 @@
 import React from "react";
+import CardLoading from "./SmallSkeletonLoading";
 
 const TechCard = () => {
   return (

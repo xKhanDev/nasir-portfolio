@@ -5,7 +5,12 @@ const ProjectCard = () => {
   return (
     <div className="border-white border-2 rounded-xl card_img_bg">
       <div className="border-b-[#7f87c1] border-b-2 p-2">
-        <img src="/pr.svg" className="w-full h-full rounded-xl" alt="" />
+        {/* <div className="skeleton h-64 w-full"></div> */}
+        <img
+          src="/pr.svg"
+          className="rounded-xl bg-cover"
+          alt="Project Image"
+        />
       </div>
       <div className="w-full flex flex-col gap-2 card_bg p-8 rounded-b-xl">
         <div className="w-full flex justify-between items-center *:capitalize">
