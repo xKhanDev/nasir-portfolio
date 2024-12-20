@@ -1,5 +1,5 @@
 import React from "react";
-import { Dashboard } from "./features/admin/constant";
+import { UploadExperience, UploadProject } from "./features/admin/constant";
 // import {
 //   Contact_Us,
 //   Experience,
@@ -22,7 +22,7 @@ const App = () => {
         <Projects />
         <Contact_Us />
       </div> */}
-      <Dashboard />
+      <UploadExperience />
     </div>
   );
 };

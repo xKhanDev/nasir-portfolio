@@ -3,8 +3,11 @@ import Partition from "../../../components/Partition";
 
 const Dashboard = () => {
   return (
-    <div className="bg-[#111111] p-8 flex flex-col gap-6 -mt-16 h-screen overflow-hidden">
-      <Partition name={"~/admin/dashboard"} />
+    <div className="bg-[#111111] p-8 flex flex-col gap-6 overflow-hidden h-screen">
+      <div className="w-full flex items-center justify-between gap-4">
+        <span className="text-[30px] font-[700]">~/admin/dashboard</span>
+        <span className="w-full bg-gray-300 h-[1px]"></span>
+      </div>
       <div className="flex justify-between p-4 border-[1px] border-white">
         <button className="p-2 hover:bg-gray-800 hover:border-b-2 hover:border-[#70e7d6] ease-in-out duration-100">
           Upload Project
