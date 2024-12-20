@@ -13,7 +13,8 @@ const techSchema = new mongoose.Schema({
     category:{
         type: String,
         required: true
-    }
+    },
+    level:["beginner","intermediate","expert"]
 },{timestamps: true});
 
 const Tech = mongoose.model("Tech",techSchema);

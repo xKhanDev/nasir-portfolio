@@ -7,6 +7,7 @@ import protectRoute from "./middlewares/protectRoute.js";
 import authDashboaredRouter from "./routes/authDashboared.routes.js"
 import projectDashboaredRouter from "./routes/projectDashboared.routes.js"
 import techDashboaredRouter from "./routes/techDashboared.routes.js"
+import ExperienceDashboaredRouter from "./routes/ExperienceDashboared.routes.js"
 import formRouter from "./routes/form.routes.js"
 
 const port = process.env.PORT || 8000;
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use("/dashboared/auth",authDashboaredRouter);
 app.use("/dashboared/projects",protectRoute,projectDashboaredRouter);
 app.use("/dashboared/techs",protectRoute,techDashboaredRouter);
+app.use("/dashboared/experience",protectRoute,ExperienceDashboaredRouter);
 app.use("/form",formRouter);
 
 app.listen(port,(req,res)=>{

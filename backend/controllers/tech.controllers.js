@@ -19,9 +19,9 @@ export const getTechs = async (req, res) => {
 
 // UPLOAD TECH
 export const uploadTech = async (req, res) => {
-    const {name,category} = req.body;
+    const {name,category,level} = req.body;
 
-    if(!name || !category) return res.status(400).json({message:"Name and category are required"});
+    if(!name || !category || !level) return res.status(400).json({message:"All fields are required"});
 
     try{
         const existedTech = await Tech.findOne({name});
@@ -35,7 +35,7 @@ export const uploadTech = async (req, res) => {
         if(!result) return res.status(500).json({message:"Error while uploading on cloudinary"});
         fileDeletion(techImage);
 
-        const tech = await Tech.create({name,category,image:result?.url});
+        const tech = await Tech.create({name,category,level,image:result?.url});
 
         return res.status(201).json({tech,message:"tech uploaded successfully"});
 
