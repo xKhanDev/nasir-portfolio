@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
 import axios from "axios";
-import useAuthStore from "../../../zustand/useAuth";
 import { useNavigate } from "react-router-dom";
+
+import useAuthStore from "../../../zustand/useAuth";
+import Loading from "../../../components/Loading";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -112,7 +114,7 @@ const Login = () => {
             disabled={loading}
             onClick={connectWallet}
           >
-            {loading ? "Loading..." : "Connect Wallet"}
+            {loading ? <Loading /> : "Connect Wallet"}
           </button>
           <div className="flex w-full items-center justify-between">
             <span className="w-full bg-white h-[1px] rounded-xl"></span>
@@ -138,7 +140,7 @@ const Login = () => {
             disabled={loginLoading}
             onClick={handleLogin}
           >
-            {loginLoading ? "Loading..." : "Login"}
+            {loginLoading ? <Loading /> : "Login"}
           </button>
         </form>
       </div>

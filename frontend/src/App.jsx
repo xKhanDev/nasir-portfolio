@@ -31,7 +31,6 @@ const MainLayout = () => {
         <Experience />
         <Projects />
         <Contact_Us />
-        <Toaster />
       </div>
     </div>
   );
@@ -62,6 +61,7 @@ const App = () => {
         <Route path="/admin/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Toaster />
     </Router>
   );
 };

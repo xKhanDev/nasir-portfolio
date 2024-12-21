@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     port:3000,
     proxy: {
-      "/dashboared/auth": "http://localhost:5000"
+      "/dashboared/": "http://localhost:5000"
     }
   },
 })
