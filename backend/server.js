@@ -20,8 +20,8 @@ app.use(cookieParser());
 
 app.use("/dashboared/auth",authDashboaredRouter);
 app.use("/dashboared/projects",projectDashboaredRouter);
-app.use("/dashboared/techs",protectRoute,techDashboaredRouter);
-app.use("/dashboared/experience",protectRoute,ExperienceDashboaredRouter);
+app.use("/dashboared/techs",techDashboaredRouter);
+app.use("/dashboared/experience",ExperienceDashboaredRouter);
 app.use("/form",formRouter);
 
 app.listen(port,(req,res)=>{

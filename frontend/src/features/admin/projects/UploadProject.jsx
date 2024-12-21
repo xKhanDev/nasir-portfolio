@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { AiOutlineClose } from "react-icons/ai";
 import Loading from "../../../components/Loading";
-import useAuthStore from "../../../zustand/useAuth";
 
 const UploadProject = ({ setStatus }) => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -15,7 +14,6 @@ const UploadProject = ({ setStatus }) => {
     category: "",
     projectImage: "",
   });
-  const accessToken = useAuthStore((state) => state.accessToken);
 
   const handleSelectImage = () => {
     const input = document.createElement("input");
@@ -30,6 +28,9 @@ const UploadProject = ({ setStatus }) => {
     };
     input.click();
   };
+
+  const user = localStorage.getItem("admin");
+  const accessToken = JSON.parse(user)?.accessToken;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -3,7 +3,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Loading from "../../../components/Loading";
-import useAuthStore from "../../../zustand/useAuth";
 
 // /dashboared/techs/upload
 const UploadTech = ({ setStatus }) => {
@@ -15,7 +14,9 @@ const UploadTech = ({ setStatus }) => {
     techImage: "",
     level: "",
   });
-  const accessToken = useAuthStore((state) => state.accessToken);
+  const user = localStorage.getItem("admin");
+  const accessToken = JSON.parse(user)?.accessToken;
+
   const handleSelectImage = () => {
     const input = document.createElement("input");
     input.type = "file";

@@ -2,12 +2,11 @@ import React from "react";
 import { MdArrowOutward, MdOutlineDeleteSweep } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
-import { Link, useNavigate } from "react-router-dom";
-import useAuthStore from "../zustand/useAuth";
+import { useNavigate } from "react-router-dom";
 import useProjectStore from "../zustand/useProject";
 
 const ProjectCard = ({ project }) => {
-  const user = useAuthStore((state) => state.user);
+  const user = localStorage.getItem("admin");
   const setSelectedProject = useProjectStore(
     (state) => state.setSelectedProject
   );

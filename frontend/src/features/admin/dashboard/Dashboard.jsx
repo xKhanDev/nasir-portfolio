@@ -3,12 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { UploadTech, UploadProject, UploadExperience } from "../constant";
-import useAuthStore from "../../../zustand/useAuth";
 
 const Dashboard = () => {
   const [messages, setMessages] = useState([]);
   const [openSection, setOpenSection] = useState("");
-  const accessToken = useAuthStore((state) => state.accessToken);
+  const user = localStorage.getItem("admin");
+  const accessToken = JSON.parse(user)?.accessToken;
 
   const handleOpenSection = (section) => {
     setOpenSection(section);
@@ -23,7 +23,6 @@ const Dashboard = () => {
           },
         });
         setMessages(response?.data);
-        console.log(response.data);
       } catch (error) {
         console.log(error);
       }

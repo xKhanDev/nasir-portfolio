@@ -4,19 +4,15 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import useAuthStore from "../../../zustand/useAuth";
 import Loading from "../../../components/Loading";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
-  const [walletAddress, setWalletAddress] = useState("");
   const [input, setInput] = useState({
     identifier: "",
     password: "",
   });
-  const setUser = useAuthStore((state) => state.setUser);
-  const setAccessToken = useAuthStore((state) => state.setAccessToken);
   const navigate = useNavigate();
 
   const connectWallet = async () => {
@@ -37,10 +33,6 @@ const Login = () => {
       const accounts = await provider.send("eth_requestAccounts", []);
       const address = accounts[0]; // Directly use the first account
 
-      // Set the wallet address
-      setWalletAddress(address);
-      console.log("Wallet address: ", address); // Log the wallet address
-
       // Post the wallet address to the backend for login
       const response = await axios.post(
         "/dashboared/auth/connect",
@@ -55,12 +47,8 @@ const Login = () => {
 
       // Handle backend response
       if (response.data?.error) throw new Error(response.data.error);
-      const { accessToken } = response.data;
-
       // Set the access token and user state
-      setAccessToken(accessToken);
-      setUser(response.data);
-
+      localStorage.setItem("admin", JSON.stringify(response.data));
       toast.success("Login successfully");
       navigate("/admin/dashboard");
     } catch (error) {
@@ -84,9 +72,7 @@ const Login = () => {
 
       if (response.data?.error) throw new Error(response.data.error);
 
-      const { accessToken } = response.data;
-      setAccessToken(accessToken);
-      setUser(response.data);
+      localStorage.setItem("admin", JSON.stringify(response.data));
       console.log(response.data);
 
       toast.success("Login successful");

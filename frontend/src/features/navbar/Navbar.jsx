@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { FaRegHandPointDown } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
-import useAuthStore from "../../zustand/useAuth";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const user = useAuthStore((state) => state.user);
+  const user = localStorage.getItem("admin");
 
   const handleScrollToSection = (sectionId) => {
     if (location.pathname !== "/") {

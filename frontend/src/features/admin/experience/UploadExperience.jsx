@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { AiOutlineClose } from "react-icons/ai";
 import Loading from "../../../components/Loading";
-import useAuthStore from "../../../zustand/useAuth";
 
 const UploadExperience = ({ setStatus }) => {
   const [loading, setLoading] = useState(false);
@@ -13,9 +12,8 @@ const UploadExperience = ({ setStatus }) => {
     from: "",
     to: "",
   });
-
-  const accessToken = useAuthStore((state) => state.accessToken);
-
+  const user = localStorage.getItem("admin");
+  const accessToken = JSON.parse(user)?.accessToken;
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

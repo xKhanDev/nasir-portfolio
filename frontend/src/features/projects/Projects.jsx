@@ -3,12 +3,12 @@ import axios from "axios";
 import Partition from "../../components/Partition";
 import ProjectCard from "../../components/ProjectCard";
 import toast from "react-hot-toast";
-import useAuthStore from "../../zustand/useAuth";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [active, setActive] = useState("all");
-  const accessToken = useAuthStore((state) => state.accessToken);
+  const accessToken = localStorage.getItem("admin").accessToken;
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -24,7 +24,7 @@ const Projects = () => {
           }
         );
         setProjects(response?.data.projects);
-        console.log(response.data.projects);
+        setFilteredProjects(response?.data.projects);
       } catch (error) {
         toast.error(error.message);
         console.log(error);
@@ -33,6 +33,18 @@ const Projects = () => {
 
     fetchProjects();
   }, []);
+
+  const handleFilter = (filter) => {
+    setActive(filter);
+    if (filter === "all") {
+      setFilteredProjects(projects);
+    } else {
+      const filteredProjects = projects.filter(
+        (project) => project.type === filter
+      );
+      setFilteredProjects(filteredProjects);
+    }
+  };
 
   return (
     <div className="w-full h-full flex flex-col gap-8">
@@ -44,6 +56,7 @@ const Projects = () => {
               ? "bg-[#58629d] border-[#70e7d6]"
               : "bg-[#1f325e] border-white"
           }`}
+          onClick={() => handleFilter("all")}
         >
           All
         </button>
@@ -53,6 +66,7 @@ const Projects = () => {
               ? "bg-[#58629d] border-[#70e7d6]"
               : "bg-[#1f325e] border-white"
           }`}
+          onClick={() => handleFilter("frontend")}
         >
           Fontend
         </button>
@@ -62,6 +76,7 @@ const Projects = () => {
               ? "bg-[#58629d] border-[#70e7d6]"
               : "bg-[#1f325e] border-white"
           }`}
+          onClick={() => handleFilter("fullstack")}
         >
           Full Stack
         </button>
@@ -71,6 +86,7 @@ const Projects = () => {
               ? "bg-[#58629d] border-[#70e7d6]"
               : "bg-[#1f325e] border-white"
           }`}
+          onClick={() => handleFilter("ai")}
         >
           Ai
         </button>
@@ -80,13 +96,14 @@ const Projects = () => {
               ? "bg-[#58629d] border-[#70e7d6]"
               : "bg-[#1f325e] border-white"
           }`}
+          onClick={() => handleFilter("blockchain")}
         >
           Blockchain
         </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {projects.length > 0 ? (
-          projects.map((project) => (
+        {filteredProjects.length > 0 ? (
+          filteredProjects.map((project) => (
             <ProjectCard project={project} key={project._id} />
           ))
         ) : (

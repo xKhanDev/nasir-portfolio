@@ -18,7 +18,6 @@ import {
   Techs,
 } from "./features/constant";
 import { Dashboard, EditProject, Login } from "./features/admin/constant";
-import useAuthStore from "./zustand/useAuth";
 
 const MainLayout = () => {
   return (
@@ -48,7 +47,7 @@ const AboutLayout = () => {
 };
 
 const App = () => {
-  const user = useAuthStore((state) => state.user);
+  const user = localStorage.getItem("admin");
   return (
     <Router>
       <Routes>

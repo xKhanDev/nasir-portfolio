@@ -14,7 +14,10 @@ const techSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    level:["beginner","intermediate","expert"]
+    level:{
+        type: String,
+        required: true
+    }
 },{timestamps: true});
 
 const Tech = mongoose.model("Tech",techSchema);
