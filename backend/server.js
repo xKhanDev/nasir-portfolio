@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/dashboared/auth",authDashboaredRouter);
-app.use("/dashboared/projects",protectRoute,projectDashboaredRouter);
+app.use("/dashboared/projects",projectDashboaredRouter);
 app.use("/dashboared/techs",protectRoute,techDashboaredRouter);
 app.use("/dashboared/experience",protectRoute,ExperienceDashboaredRouter);
 app.use("/form",formRouter);

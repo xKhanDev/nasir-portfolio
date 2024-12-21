@@ -17,7 +17,7 @@ import {
   Projects,
   Techs,
 } from "./features/constant";
-import { Dashboard, Login } from "./features/admin/constant";
+import { Dashboard, EditProject, Login } from "./features/admin/constant";
 import useAuthStore from "./zustand/useAuth";
 
 const MainLayout = () => {
@@ -58,7 +58,9 @@ const App = () => {
           path="/admin/dashboard"
           element={user ? <Dashboard /> : <Navigate to="/admin/login" />}
         />
+        <Route path="/admin/project/edit" element={<EditProject />} />
         <Route path="/admin/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />

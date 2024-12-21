@@ -39,8 +39,6 @@ const Login = () => {
 
       // Set the wallet address
       setWalletAddress(address);
-      toast.success("Wallet connected successfully");
-
       console.log("Wallet address: ", address); // Log the wallet address
 
       // Post the wallet address to the backend for login

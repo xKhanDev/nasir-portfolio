@@ -1,12 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
 import { UploadTech, UploadProject, UploadExperience } from "../constant";
+import useAuthStore from "../../../zustand/useAuth";
 
 const Dashboard = () => {
+  const [messages, setMessages] = useState([]);
   const [openSection, setOpenSection] = useState("");
+  const accessToken = useAuthStore((state) => state.accessToken);
 
   const handleOpenSection = (section) => {
     setOpenSection(section);
   };
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get("/form/messages", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        setMessages(response?.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMessages();
+  }, [accessToken]);
 
   return (
     <>
@@ -24,6 +48,9 @@ const Dashboard = () => {
           openSection ? "hidden" : "flex"
         }`}
       >
+        <Link to="/" className="text-3xl">
+          <AiFillHome className=" hover:text-[#70e7d6] cursor-pointer ease-in-out duration-300" />
+        </Link>
         <div className="w-full flex items-center justify-between gap-4">
           <span className="text-[30px] font-[700]">~/admin/dashboard</span>
           <span className="w-full bg-gray-300 h-[1px]"></span>
@@ -80,27 +107,28 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-200">
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap">John Doe</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  john.doe@example.com
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">Inquiry</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap">Jane Smith</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  jane.smith@example.com
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">Feedback</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  Sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua.
-                </td>
-              </tr>
+              {messages.length > 0 ? (
+                messages.map((message, index) => (
+                  <tr key={index}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {message.fullname}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {message.email}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {message.subject}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {message.message}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap">No messages</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

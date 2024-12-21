@@ -8,9 +8,8 @@ const router = Router();
 router.get("/messages",protectRoute,async(req, res) => {
     try {
         const messages = await Contact.find({});
-        if(!messages) return res.status(500).json({message:"Internal server error"});
-    
-        return res.status(200).json({messages,message:"success"});
+        if(!messages) return res.status(404).json({message:"No messages found"});
+        res.status(200).json(messages);
     } catch (error) {
         console.log("ERROR IN GET MESSAGES",error.message);
     }

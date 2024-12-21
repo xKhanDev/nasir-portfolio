@@ -32,3 +32,13 @@ body {
   transition: transform 0.3s ease-in-out;
   transform: rotate(-360deg);
 }
+
+/* scroll hide */
+.no_scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.no_scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
