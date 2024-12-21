@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [input, setInput] = useState({
     identifier: "",
@@ -18,22 +19,32 @@ const Login = () => {
 
   const connectWallet = async () => {
     setLoading(true);
+
+    // Check if MetaMask is installed
     if (!window.ethereum) {
       toast.error("Please install MetaMask");
       setLoading(false);
       return;
     }
 
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const account = await provider.send("eth_requestAccounts", []);
-    const address = account[0];
-    setWalletAddress(address);
-    toast.success("Wallet connected successfully");
     try {
-      console.log(walletAddress);
+      // Create provider using ethers
+      const provider = new ethers.BrowserProvider(window.ethereum);
+
+      // Request the accounts from MetaMask
+      const accounts = await provider.send("eth_requestAccounts", []);
+      const address = accounts[0]; // Directly use the first account
+
+      // Set the wallet address
+      setWalletAddress(address);
+      toast.success("Wallet connected successfully");
+
+      console.log("Wallet address: ", address); // Log the wallet address
+
+      // Post the wallet address to the backend for login
       const response = await axios.post(
         "/dashboared/auth/connect",
-        { walletAddress },
+        { walletAddress: address },
         {
           withCredentials: true,
           headers: {
@@ -42,26 +53,27 @@ const Login = () => {
         }
       );
 
+      // Handle backend response
       if (response.data?.error) throw new Error(response.data.error);
       const { accessToken } = response.data;
+
+      // Set the access token and user state
       setAccessToken(accessToken);
       setUser(response.data);
 
       toast.success("Login successfully");
       navigate("/admin/dashboard");
-
-      setLoading(false);
     } catch (error) {
       toast.error(error.message);
-      setLoading(false);
     } finally {
-      setLoading(false);
+      setLoading(false); // Ensure this is only called once
     }
   };
 
   const handleLogin = async (e) => {
-    setLoading(true);
+    setLoginLoading(true);
     e.preventDefault();
+    console.log(input);
     try {
       const response = await axios.post("/dashboared/auth/login", input, {
         withCredentials: true,
@@ -75,15 +87,16 @@ const Login = () => {
       const { accessToken } = response.data;
       setAccessToken(accessToken);
       setUser(response.data);
+      console.log(response.data);
 
       toast.success("Login successful");
       navigate("/admin/dashboard");
-      setLoading(false);
+      setLoginLoading(false);
     } catch (error) {
       toast.error(error.message);
-      setLoading(false);
+      setLoginLoading(false);
     } finally {
-      setLoading(false);
+      setLoginLoading(false);
     }
   };
 
@@ -122,10 +135,10 @@ const Login = () => {
           />
           <button
             className="w-full bg-[#58629d] py-2 h-12 rounded-lg transition hover:bg-white hover:text-[#58629d] duration-300 ease-in-out"
-            disabled={loading}
+            disabled={loginLoading}
             onClick={handleLogin}
           >
-            {loading ? "Loading..." : "Login"}
+            {loginLoading ? "Loading..." : "Login"}
           </button>
         </form>
       </div>
