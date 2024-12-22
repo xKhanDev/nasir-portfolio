@@ -1,5 +1,4 @@
 import axios from 'axios';
-import useAuthStore from '../zustand/useAuth';
 
 const instance = axios.create({
   baseURL: 'http://localhost:5000',
@@ -8,7 +7,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const token = useAuthStore.getState().accessToken;
+    const user = localStorage.getItem('admin');
+    const token = JSON.parse(user)?.accessToken;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -28,11 +28,11 @@ instance.interceptors.response.use(
           withCredentials: true,
         });
         const newAccessToken = response.data.accessToken;
-        useAuthStore.getState().setAccessToken(newAccessToken);
+        localStorage.setItem('admin', JSON.stringify({ ...JSON.parse(user), accessToken: newAccessToken }));
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return instance(originalRequest);
       } catch (error) {
-        useAuthStore.getState().logout();
+        localStorage.removeItem('admin');
         return Promise.reject(error);
       }
     }
