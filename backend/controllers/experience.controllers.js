@@ -4,7 +4,7 @@ export const getExperiences = async (req, res) => {
     try {
         const experiences = await Experience.find();
         if(experiences.length === 0){
-            return res.status(404).json({ message: "No experiences found" });
+            return res.status(200).json({ message: "No experiences found" });
         }
         res.status(200).json(experiences);
     } catch (error) {

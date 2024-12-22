@@ -75,6 +75,7 @@ const Login = () => {
       console.log(response.data);
 
       toast.success("Login successful");
+      window.location.reload();
       Navigate("/admin/dashboard");
       setLoginLoading(false);
     } catch (error) {

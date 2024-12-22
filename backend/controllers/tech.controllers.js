@@ -7,7 +7,9 @@ export const getTechs = async (req, res) => {
     try {
         const techs = await Tech.find({});
 
-        if(!techs) return res.status(404).json({message:"No techs found"});
+        if(techs.length === 0){
+            return res.status(201).json({message:"No techs found"});
+        }
 
         return res.status(200).json({techs,message:"techs successfully fetched"});
 

@@ -30,7 +30,7 @@ const Techs = () => {
       <h1 className="block text-3xl font-[700]">Languages:</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
         {techs
-          .filter((tech) => tech.category === "language")
+          .filter((tech) => tech?.category === "language")
           .map((tech) => {
             return <TechCard key={tech._id} data={tech} />;
           })}
@@ -38,7 +38,7 @@ const Techs = () => {
       <h1 className="block text-3xl font-[700] md:mt-6">Framerworks:</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
         {techs
-          .filter((tech) => tech.category === ("framework" || "library"))
+          .filter((tech) => tech?.category === ("framework" || "library"))
           .map((tech) => {
             return <TechCard key={tech._id} data={tech} />;
           })}
@@ -46,7 +46,7 @@ const Techs = () => {
       <h1 className="block text-3xl font-[700] md:mt-6">Tools:</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
         {techs
-          .filter((tech) => tech.category === "tool")
+          .filter((tech) => tech?.category === "tool")
           .map((tech) => {
             return <TechCard key={tech._id} data={tech} />;
           })}
@@ -56,7 +56,7 @@ const Techs = () => {
           <h1 className="block text-3xl font-[700] md:mt-6">Others:</h1>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
             {techs
-              .filter((tech) => tech.category === "other")
+              .filter((tech) => tech?.category === "other")
               .map((tech) => {
                 return <TechCard key={tech._id} data={tech} />;
               })}

@@ -7,7 +7,9 @@ export const getProjects = async (req, res) => {
     try{
         const projects = await Project.find({});
 
-        if(!projects) return res.status(404).json({message:"No projects found"});
+        if(projects.length === 0){
+            return res.status(201).json({message:"No projects found"});
+        }
 
         res.status(200).json({projects,message:"projects successfully fetched"});
     }catch(error){
