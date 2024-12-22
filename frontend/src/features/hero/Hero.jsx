@@ -5,16 +5,21 @@ import { HiOutlineMail } from "react-icons/hi";
 import { TbBrandFiverr } from "react-icons/tb";
 
 const Hero = () => {
-  const [text, setText] = React.useState("Hello");
+  const [text, setText] = React.useState("hi");
   // generating hello in 7 languages
   const hello = [
-    "Bonjour",
+    "Hello",
+    "Namaskar",
+    "Marhaba",
     "Hola",
+    "Bonjour",
     "Olá",
     "Namaste",
     "Ciao",
     "Aloha",
-    "Salamaleikum",
+    "Salam",
+    "Ni Hao",
+    "Zdravstvuyte",
   ];
 
   useEffect(() => {
@@ -35,7 +40,7 @@ const Hero = () => {
       id="home"
     >
       <div className="w-full flex flex-col gap-4 lg:w-1/2 *:text-[60px] *:font-[600]">
-        <span className="text-line-height">{text}</span>
+        <span className="text-line-height capitalize">{text},</span>
         <h1 className="text-line-height">I'm Safeer Ullah</h1>
         <div className="w-1/2 flex justify-between items-center *:text-4xl *:cursor-pointer *:p-1">
           <a href="https://github.com/xKhanDev" target="_blank">

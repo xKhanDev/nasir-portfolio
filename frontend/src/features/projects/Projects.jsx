@@ -8,7 +8,8 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [active, setActive] = useState("all");
-  const accessToken = localStorage.getItem("admin").accessToken;
+  const user = localStorage.getItem("admin");
+  const accessToken = JSON.parse(user)?.accessToken;
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -40,7 +41,7 @@ const Projects = () => {
       setFilteredProjects(projects);
     } else {
       const filteredProjects = projects.filter(
-        (project) => project.type === filter
+        (project) => project?.category === filter
       );
       setFilteredProjects(filteredProjects);
     }

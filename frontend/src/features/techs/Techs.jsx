@@ -17,7 +17,6 @@ const Techs = () => {
         const data = response.data;
         if (data.error) throw new Error(data.error);
         setTechs(data.techs);
-        console.log(data.techs);
       } catch (error) {
         console.log(error);
       }

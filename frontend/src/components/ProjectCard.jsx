@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 import { MdArrowOutward, MdOutlineDeleteSweep } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
@@ -10,11 +12,34 @@ const ProjectCard = ({ project }) => {
   const setSelectedProject = useProjectStore(
     (state) => state.setSelectedProject
   );
+  const accessToken = JSON.parse(user)?.accessToken;
+
   const navigate = useNavigate();
   const handleEdit = (project) => {
     setSelectedProject(project);
     navigate("/admin/project/edit");
   };
+
+  const handleDelete = async (projectId) => {
+    try {
+      const response = await axios.delete(
+        `/dashboared/projects/delete/${projectId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response?.data?.error) throw new Error(response?.data?.error);
+
+      toast.success("Project deleted successfully");
+      window.location.reload();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="relative border-white border-2 rounded-xl card_img_bg">
       {user && (
@@ -35,7 +60,10 @@ const ProjectCard = ({ project }) => {
               </span>
             </div>
             <div className="font-semibold p-2 hover:bg-[#2e457b] rounded-lg">
-              <span className="flex items-center gap-1 *:text-base">
+              <span
+                className="flex items-center gap-1 *:text-base"
+                onClick={() => handleDelete(project?._id)}
+              >
                 <MdOutlineDeleteSweep /> Delete
               </span>
             </div>

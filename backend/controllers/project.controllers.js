@@ -1,7 +1,6 @@
 import Project from "../models/project.model.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
 import fileDeletion from "../utils/fileDeletion.js";
-import fileDelection from "../utils/fileDeletion.js";
 
 // GET PROJECT
 export const getProjects = async (req, res) => {
@@ -19,14 +18,15 @@ export const getProjects = async (req, res) => {
 
 // UPLOAD PROJECT
 export const uploadProject = async (req, res) => {
-    const {title,description,githubLink,previewLink,category} = req.body;
+    const {title,githubLink,previewLink,category} = req.body;
 
-    if([title,description,githubLink,previewLink,category].some(field => field?.trim() === "")){
+    if([title,githubLink,previewLink,category].some(field => field?.trim() === "")){
         return res.status(400).json({message:"All fields are required"});
     }
 
     try {
         const  projectImageLocalPath = req.files?.projectImage?.[0].path;
+        if(!projectImageLocalPath) return res.status(400).json({message:"Project image is required"});
         const projectImage = await uploadOnCloudinary(projectImageLocalPath)
         if(!projectImage) return res.status(500).json({message:"Internal server error"});
         fileDelection(projectImageLocalPath);
@@ -34,7 +34,6 @@ export const uploadProject = async (req, res) => {
         const project = await Project.create(
             {
                 title,
-                description,
                 image:projectImage?.url,
                 githubLink,
                 previewLink,
@@ -51,42 +50,47 @@ export const uploadProject = async (req, res) => {
 
 // EDIT PROJECT
 export const editProject = async (req, res) => {
-    const {title,description,githubLink,previewLink,category} = req.body;
+    const { title, githubLink, previewLink, category } = req.body;
     const projectId = req.params.id;
 
-    const checkProject = await Project.findById(projectId);
-    if(!checkProject) return res.status(404).json({message:"Project not found"});
+    try {
+        const checkProject = await Project.findById(projectId);
+        if (!checkProject) return res.status(404).json({ message: "Project not found" });
 
-    if([title,description,githubLink,previewLink,category].some(field => field?.trim() === "")){
-        return res.status(400).json({message:"All fields are required"});
-    }
+        if ([title, githubLink, previewLink, category].some(field => field?.trim() === "")) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
 
-    try{
-        let projectImageLocalPath = req.files?.projectImage?.[0]?.path;
-        let projectImage = null;
-        if(projectImageLocalPath){
-            console.log("PROJECT IMAGE IS THIS PATH:",projectImageLocalPath);
-            projectImage = await uploadOnCloudinary(projectImageLocalPath);
-            if(!projectImage) return res.status(500).json({message:"Error uploading project image"});
+        let projectImageLocalPath = req.files?.updateProjectImage?.[0]?.path;
+        let updateProjectImage;
+
+        if (projectImageLocalPath) {
+            updateProjectImage = await uploadOnCloudinary(projectImageLocalPath);
+            if (!updateProjectImage) {
+                return res.status(500).json({ message: "Error uploading project image" });
+            }
             fileDeletion(projectImageLocalPath);
         }
 
-        const project = await Project.findByIdAndUpdate(projectId,
-        {
-            title,
-            description,
-            githubLink,
-            previewLink,
-            category,
-            image: projectImage ? projectImage?.url : checkProject?.image
-        },{new:true});
+        const updatedProject = await Project.findByIdAndUpdate(
+            projectId,
+            {
+                title,
+                githubLink,
+                previewLink,
+                category,
+                image: updateProjectImage ? updateProjectImage.url : checkProject.image,
+            },
+            { new: true }
+        );
 
-        return res.status(200).json({project,message:"project updated successfully"});    
-    }catch(error){
-        console.log("ERROR IN EDIT PROJECT",error.message);
-        res.status(500).json({message:"Internal server error"});
+        return res.status(200).json({ project: updatedProject, message: "Project updated successfully" });
+    } catch (error) {
+        console.log("ERROR IN EDIT PROJECT", error.message);
+        res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 // DELETE PROJECT
 export const deleteProject = async (req, res) => {

@@ -28,7 +28,7 @@ instance.interceptors.response.use(
           withCredentials: true,
         });
         const newAccessToken = response.data.accessToken;
-        localStorage.setItem('admin', JSON.stringify({ ...JSON.parse(user), accessToken: newAccessToken }));
+        localStorage.setItem('admin', JSON.stringify({ ...JSON.parse(localStorage.getItem('admin')), accessToken: newAccessToken }));
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return instance(originalRequest);
       } catch (error) {
