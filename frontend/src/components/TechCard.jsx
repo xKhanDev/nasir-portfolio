@@ -7,7 +7,7 @@ const TechCard = ({ data }) => {
       <img
         src={data?.image}
         alt=""
-        className="w-full h-32 bg-cover bg-center rounded-lg"
+        className="my-0 mx-auto w-full h-32 object-cover bg-cover bg-center rounded-lg"
       />
       <span className="w-full bg-white h-[1px]"></span>
       <h3 className="text-xl md:text-2xl lg:text-2xl font-semibold capitalize mt-4">

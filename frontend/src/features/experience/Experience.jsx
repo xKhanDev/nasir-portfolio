@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import Partition from "../../components/Partition";
-import { IoMdArrowDropright } from "react-icons/io";
 import Experiences from "../../components/Experiences";
 
 const Experience = () => {
@@ -10,15 +9,11 @@ const Experience = () => {
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const res = await axios.get(
-          "/dashboared/experience/",
-          {},
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const res = await axios.get("/dashboared/experience/", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         if (res.data.error) throw new Error(res.data.error);
 

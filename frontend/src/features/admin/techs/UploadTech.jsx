@@ -10,7 +10,7 @@ const UploadTech = ({ setStatus }) => {
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState({
     name: "",
-    category: "",
+    category: "language",
     techImage: "",
     level: "",
   });
@@ -34,8 +34,15 @@ const UploadTech = ({ setStatus }) => {
     e.preventDefault();
     setLoading(true);
 
-    if (!input.name || !input.category || !input.level || !input.techImage)
-      return toast.error("Please fill all the fields");
+    if (!input.name || !input.category || !input.level || !input.techImage) {
+      let error = "Please fill ";
+      if (!input.name) error += "name ";
+      if (!input.category) error += "category ";
+      if (!input.level) error += "level ";
+      if (!input.techImage) error += "tech image ";
+      error += "field";
+      return toast.error(error);
+    }
 
     try {
       const formData = new FormData();
@@ -100,7 +107,9 @@ const UploadTech = ({ setStatus }) => {
             className="w-full border-2 border-white p-3 rounded-lg text-[18px]"
             onChange={(e) => setInput({ ...input, category: e.target.value })}
           >
-            <option value="language">Language</option>
+            <option value="language" selected>
+              Language
+            </option>
             <option value="framework">Framework</option>
             <option value="library">Library</option>
             <option value="tool">Tool</option>

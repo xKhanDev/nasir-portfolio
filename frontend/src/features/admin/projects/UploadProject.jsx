@@ -11,7 +11,7 @@ const UploadProject = ({ setStatus }) => {
     title: "",
     githubLink: "",
     previewLink: "",
-    category: "",
+    category: "frontend",
     projectImage: "",
   });
 

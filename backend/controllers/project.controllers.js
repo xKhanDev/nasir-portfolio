@@ -29,7 +29,7 @@ export const uploadProject = async (req, res) => {
         if(!projectImageLocalPath) return res.status(400).json({message:"Project image is required"});
         const projectImage = await uploadOnCloudinary(projectImageLocalPath)
         if(!projectImage) return res.status(500).json({message:"Internal server error"});
-        fileDelection(projectImageLocalPath);
+        fileDeletion(projectImageLocalPath);
 
         const project = await Project.create(
             {

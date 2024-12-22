@@ -51,14 +51,18 @@ const Techs = () => {
             return <TechCard key={tech._id} data={tech} />;
           })}
       </div>
-      <h1 className="block text-3xl font-[700] md:mt-6">Others:</h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
-        {techs
-          .filter((tech) => tech.category === "other")
-          .map((tech) => {
-            return <TechCard key={tech._id} data={tech} />;
-          })}
-      </div>
+      {techs.filter((tech) => tech.category === "other").length > 0 && (
+        <>
+          <h1 className="block text-3xl font-[700] md:mt-6">Others:</h1>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
+            {techs
+              .filter((tech) => tech.category === "other")
+              .map((tech) => {
+                return <TechCard key={tech._id} data={tech} />;
+              })}
+          </div>
+        </>
+      )}
     </section>
   );
 };

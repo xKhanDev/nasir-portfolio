@@ -7,8 +7,8 @@ export default defineConfig({
   server: {
     port:3000,
     proxy: {
-      "/dashboared/": "https://localhost:5000",
-      "/form/": "https://localhost:5000",
+      "/dashboared/": "http://localhost:5000",
+      "/form/": "http://localhost:5000",
     }
   },
 })
