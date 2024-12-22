@@ -58,7 +58,10 @@ const App = () => {
           element={user ? <Dashboard /> : <Navigate to="/admin/login" />}
         />
         <Route path="/admin/project/edit" element={<EditProject />} />
-        <Route path="/admin/login" element={<Login />} />
+        <Route
+          path="/admin/login"
+          element={user ? <Navigate to="/admin/dashboard" /> : <Login />}
+        />
         <Route path="*" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
