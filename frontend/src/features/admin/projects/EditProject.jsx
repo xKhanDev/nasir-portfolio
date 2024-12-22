@@ -16,7 +16,7 @@ const EditProject = () => {
     category: selectedProject?.category,
     previewLink: selectedProject?.previewLink,
     githubLink: selectedProject?.githubLink,
-    image: selectedProject?.image,
+    updateProjectImage: selectedProject?.image,
   });
 
   const navigate = useNavigate();
@@ -32,8 +32,8 @@ const EditProject = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         setSelectedImage(e.target.result);
-        setNewData({ ...newData, image: e.target.result });
       };
+      setNewData({ ...newData, updateProjectImage: file });
       reader.readAsDataURL(file);
     };
     input.click();
@@ -46,7 +46,7 @@ const EditProject = () => {
       newData?.category === "" ||
       newData?.previewLink === "" ||
       newData?.githubLink === "" ||
-      newData?.image === ""
+      newData?.updateProjectImage === ""
     ) {
       return toast.error("Please fill all the fields");
     }
@@ -56,7 +56,7 @@ const EditProject = () => {
     formData.append("category", newData?.category);
     formData.append("previewLink", newData?.previewLink);
     formData.append("githubLink", newData?.githubLink);
-    formData.append("image", newData?.image);
+    formData.append("updateProjectImage", newData?.updateProjectImage);
     try {
       const response = await axios.put(
         `/dashboared/projects/edit/${selectedProject?._id}`,
@@ -69,7 +69,10 @@ const EditProject = () => {
         }
       );
 
-      if (response.data?.error) throw new Error(response.data.error);
+      if (response.data?.error) {
+        setLoading(false);
+        return toast.error(response.data?.error);
+      }
 
       toast.success("Project updated successfully");
       setLoading(false);
@@ -90,7 +93,7 @@ const EditProject = () => {
       </Link>
       <div className="w-full md:w-[70%] lg:w-1/3 flex flex-col items-center gap-4 rounded-2xl border-gray-400 border-2 p-8 *:text-[18px]">
         <img
-          src={selectedImage || newData?.image}
+          src={selectedImage || newData?.updateProjectImage}
           alt="Selected"
           className="w-full h-40 object-cover"
           onClick={handleSelectImage}
