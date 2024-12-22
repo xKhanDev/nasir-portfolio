@@ -50,7 +50,7 @@ const Navbar = () => {
             </a>
           </li>
           <li
-            className="uppercase hover:border-b-2 border-[#70e7d6] ease-in-out duration-100 hover:-translate-y-[2px] text-[18px] font-medium flex items-center gap-[2px]"
+            className="cursor-pointer uppercase hover:border-b-2 border-[#70e7d6] ease-in-out duration-100 hover:-translate-y-[2px] text-[18px] font-medium flex items-center gap-[2px]"
             onClick={() => navigate("/about")}
           >
             About
@@ -127,7 +127,7 @@ const Navbar = () => {
             <a href="/">home</a>
           </li>
           <li
-            className="w-full h-14 md:h-20 content-center uppercase hover:bg-[#252766] ease-in-out duration-300"
+            className="cursor-pointer w-full h-14 md:h-20 content-center uppercase hover:bg-[#252766] ease-in-out duration-300"
             onClick={() => navigate("/about")}
           >
             about
