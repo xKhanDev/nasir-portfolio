@@ -146,7 +146,7 @@ const Navbar = () => {
           </li>
           <li
             className="w-full h-14 md:h-20 content-center uppercase hover:bg-[#252766] ease-in-out duration-300"
-            onClick={() => navigate("/certificate")}
+            onClick={() => handleScrollToSection("certificates")}
           >
             <a href="#certificate">Certificate</a>
           </li>

@@ -4,5 +4,6 @@ import UploadTech from "./techs/UploadTech";
 import UploadProject from "./projects/UploadProject";
 import UploadExperience from "./experience/UploadExperience";
 import EditProject from "./projects/EditProject";
+import UploadCertificate from "./certificate/UploadCertificate";
 
-export { Login,Dashboard,UploadTech,UploadProject,UploadExperience,EditProject };
+export { Login,Dashboard,UploadTech,UploadProject,UploadExperience,EditProject,UploadCertificate };

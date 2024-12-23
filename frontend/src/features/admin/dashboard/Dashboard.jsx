@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
-import { UploadTech, UploadProject, UploadExperience } from "../constant";
+import {
+  UploadTech,
+  UploadProject,
+  UploadExperience,
+  UploadCertificate,
+} from "../constant";
 
 const Dashboard = () => {
   const [messages, setMessages] = useState([]);
@@ -42,6 +47,9 @@ const Dashboard = () => {
       {openSection === "experience" && (
         <UploadExperience status={openSection} setStatus={handleOpenSection} />
       )}
+      {openSection === "certificate" && (
+        <UploadCertificate status={openSection} setStatus={handleOpenSection} />
+      )}
       <div
         className={`bg-[#111111] p-8 flex-col gap-6 overflow-hidden h-screen ${
           openSection ? "hidden" : "flex"
@@ -54,7 +62,7 @@ const Dashboard = () => {
           <span className="text-[30px] font-[700]">~/admin/dashboard</span>
           <span className="w-full bg-gray-300 h-[1px]"></span>
         </div>
-        <div className="flex justify-between p-4 border-[1px] border-white">
+        <div className="flex justify-between p-4 border-[1px] border-white no_scroll overflow-x-auto">
           <button
             className="p-2 hover:bg-gray-800 hover:border-b-2 hover:border-[#70e7d6] ease-in-out duration-100"
             onClick={() => handleOpenSection("project")}
@@ -72,6 +80,12 @@ const Dashboard = () => {
             onClick={() => handleOpenSection("experience")}
           >
             Upload Experience
+          </button>
+          <button
+            className="p-2 hover:bg-gray-800 hover:border-b-2 hover:border-[#70e7d6] ease-in-out duration-100"
+            onClick={() => handleOpenSection("certificate")}
+          >
+            Upload Certificate
           </button>
         </div>
         <div className="overflow-x-auto">

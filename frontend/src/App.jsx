@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import {
   BrowserRouter as Router,
@@ -15,9 +15,12 @@ import {
   Navbar,
   NotFound,
   Projects,
-  Techs,
+  Certificates,
 } from "./features/constant";
 import { Dashboard, EditProject, Login } from "./features/admin/constant";
+import TechsLoading from "./components/main_loading/TechsLoading";
+
+const Techs = lazy(() => import("./features/techs/Techs"));
 
 const MainLayout = () => {
   return (
@@ -26,9 +29,12 @@ const MainLayout = () => {
       <div className="px-2 md:px-4 lg:px-12 flex flex-col gap-8">
         <Hero />
         <Markee />
-        <Techs />
+        <Suspense fallback={<TechsLoading />}>
+          <Techs />
+        </Suspense>
         <Experience />
         <Projects />
+        <Certificates />
         <Contact_Us />
       </div>
     </div>
@@ -62,7 +68,6 @@ const App = () => {
           path="/admin/login"
           element={user ? <Navigate to="/admin/dashboard" /> : <Login />}
         />
-        <Route path="*" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
