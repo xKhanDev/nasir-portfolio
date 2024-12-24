@@ -24,8 +24,8 @@ const Projects = () => {
             },
           }
         );
-        setProjects(response?.data.projects);
-        setFilteredProjects(response?.data.projects);
+        setProjects(response?.data.projects || []);
+        setFilteredProjects(response?.data.projects || []);
       } catch (error) {
         toast.error(error.message);
         console.log(error);
@@ -103,8 +103,8 @@ const Projects = () => {
         </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {filteredProjects.length > 0 ? (
-          filteredProjects.map((project) => (
+        {filteredProjects?.length > 0 ? (
+          filteredProjects?.map((project) => (
             <ProjectCard project={project} key={project._id} />
           ))
         ) : (

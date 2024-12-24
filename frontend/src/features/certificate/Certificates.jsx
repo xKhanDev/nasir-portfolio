@@ -16,8 +16,7 @@ const Certificates = () => {
         });
         const data = response.data;
         if (data.error) throw new Error(data.error);
-        setCertificates(data.certificates);
-        console.log(data.certificates);
+        setCertificates(data.certificates || []);
       } catch (error) {
         console.log(error);
       }
@@ -28,7 +27,7 @@ const Certificates = () => {
     <div className="w-full flex flex-col gap-4" id="certificates">
       <Partition name="~/certificates/❤️" />
       <div className="flex flex-col gap-4">
-        {certificates.length === 0 ? (
+        {certificates?.length === 0 ? (
           <h1 className="block text-3xl font-[700] text-pretty mt-6 text-[#70e7d6]">
             No certificates found
           </h1>

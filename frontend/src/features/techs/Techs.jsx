@@ -16,7 +16,7 @@ const Techs = () => {
         });
         const data = response.data;
         if (data.error) throw new Error(data.error);
-        setTechs(data.techs);
+        setTechs(data.techs || []);
       } catch (error) {
         console.log(error);
       }
@@ -30,7 +30,7 @@ const Techs = () => {
       <h1 className="block text-3xl font-[700]">Languages:</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
         {techs
-          .filter((tech) => tech?.category === "language")
+          ?.filter((tech) => tech?.category === "language")
           .map((tech) => {
             return <TechCard key={tech._id} data={tech} />;
           })}

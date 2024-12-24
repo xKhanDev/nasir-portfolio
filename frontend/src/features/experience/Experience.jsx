@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Partition from "../../components/Partition";
 import Experiences from "../../components/Experiences";
 
 const Experience = () => {
-  const [experiences, setExperiences] = React.useState([]);
+  const [experiences, setExperiences] = useState([]);
 
   useEffect(() => {
     const fetchExperiences = async () => {
@@ -17,7 +17,7 @@ const Experience = () => {
 
         if (res.data.error) throw new Error(res.data.error);
 
-        setExperiences(res.data);
+        setExperiences(res.data ? res.data : []);
       } catch (error) {
         console.log(error);
       }
@@ -31,7 +31,8 @@ const Experience = () => {
       {experiences?.length === 0 ? (
         <span className="text-[20px]">No experience found</span>
       ) : (
-        experiences.map((experience) => {
+        Array.isArray(experiences) &&
+        experiences?.map((experience) => {
           return (
             <Experiences key={experience?._id} experienceData={experience} />
           );
