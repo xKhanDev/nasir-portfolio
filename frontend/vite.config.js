@@ -7,8 +7,8 @@ export default defineConfig({
   server: {
     port:3000,
     proxy: {
-      "/dashboared/": "https://safeerxkhan.netlify.app",
-      "/form/": "https://safeerxkhan.netlify.app",
+      "/dashboared/": "http://localhost:5000/",
+      "/form/": "http://localhost:5000/",
     }
   },
 })

@@ -20,15 +20,20 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-app.use("/dashboared/auth",authDashboaredRouter);
-app.use("/dashboared/projects",projectDashboaredRouter);
-app.use("/dashboared/techs",techDashboaredRouter);
-app.use("/dashboared/experience",experienceDashboaredRouter);
-app.use("/form",formRouter);
-app.use("/dashboared/certificate",certificateDashboaredRouter);
+// app.use("/dashboared/auth",authDashboaredRouter);
+// app.use("/dashboared/projects",projectDashboaredRouter);
+// app.use("/dashboared/techs",techDashboaredRouter);
+// app.use("/dashboared/experience",experienceDashboaredRouter);
+// app.use("/form",formRouter);
+// app.use("/dashboared/certificate",certificateDashboaredRouter);
+
+app.get("/",(req,res)=>{
+    res.send("hello, im just checking this route is deployed or not")
+})
+
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname,"./frontend/dist")));
+app.use(express.static(path.join(__dirname,"../frontend/dist")));
 app.get("*",(req,res)=>{
     res.sendFile(path.join(__dirname,"frontend","dist","index.html"));
 })

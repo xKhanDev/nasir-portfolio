@@ -72,11 +72,7 @@ const Navbar = () => {
             </a>
           </li>
           <li className="uppercase hover:border-b-2 border-[#70e7d6] ease-in-out duration-100 hover:-translate-y-[2px]">
-            <a
-              href="#certificate"
-              className="text-[18px] font-medium"
-              onClick={() => navigate("/certificate")}
-            >
+            <a href="#certificates" className="text-[18px] font-medium">
               Certificate
             </a>
           </li>
