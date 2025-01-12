@@ -11,7 +11,7 @@ import experienceDashboaredRouter from "./routes/ExperienceDashboared.routes.js"
 import certificateDashboaredRouter from "./routes/certificateDashboaredRouter.routes.js";
 import formRouter from "./routes/form.routes.js";
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 const app = express();
 
