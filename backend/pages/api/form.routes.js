@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import Contact from "../models/contact.model.js";
-import protectRoute from "../middlewares/protectRoute.js"
+import Contact from "../../models/contact.model.js";
+import protectRoute from "../../middlewares/protectRoute.js"
 
 const router = Router();
 

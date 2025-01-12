@@ -1,8 +1,8 @@
 import {Router} from "express";
 
-import { getTechs, uploadTech } from "../controllers/tech.controllers.js";
-import upload from "../middlewares/multer.js";
-import protectRoute from "../middlewares/protectRoute.js";
+import { getTechs, uploadTech } from "../../controllers/tech.controllers.js";
+import upload from "../../middlewares/multer.js";
+import protectRoute from "../../middlewares/protectRoute.js";
 
 const router = Router();
 

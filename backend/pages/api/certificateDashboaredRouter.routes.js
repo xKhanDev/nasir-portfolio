@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import { getCertificates, uploadCertificates } from "../controllers/certificate.controllers.js";
-import protectRoute from "../middlewares/protectRoute.js";
-import upload from "../middlewares/multer.js"
+import { getCertificates, uploadCertificates } from "../../controllers/certificate.controllers.js";
+import protectRoute from "../../middlewares/protectRoute.js";
+import upload from "../../middlewares/multer.js"
 
 const router = Router();
 

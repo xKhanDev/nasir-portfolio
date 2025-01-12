@@ -4,14 +4,14 @@ import cors from 'cors';
 import path from 'path';
 
 import connectDB from './db/db.js';
-import authDashboaredRouter from "./routes/authDashboared.routes.js";
-import projectDashboaredRouter from "./routes/projectDashboared.routes.js";
-import techDashboaredRouter from "./routes/techDashboared.routes.js";
-import experienceDashboaredRouter from "./routes/ExperienceDashboared.routes.js";
-import certificateDashboaredRouter from "./routes/certificateDashboaredRouter.routes.js";
-import formRouter from "./routes/form.routes.js";
+import authDashboaredRouter from "./pages/api/authDashboared.routes.js";
+import projectDashboaredRouter from "./pages/api/projectDashboared.routes.js";
+import techDashboaredRouter from "./pages/api/techDashboared.routes.js";
+import experienceDashboaredRouter from "./pages/api/ExperienceDashboared.routes.js";
+import certificateDashboaredRouter from "./pages/api/certificateDashboaredRouter.routes.js";
+import formRouter from "./pages/api/form.routes.js";
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 const app = express();
 

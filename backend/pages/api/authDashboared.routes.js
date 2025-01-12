@@ -1,7 +1,7 @@
 import express from "express";
-import { connectWallet, login } from "../controllers/auth.controllers.js";
-import User from "../models/user.models.js";
-import { generateAccessToken } from "../utils/generateToken.js";
+import { connectWallet, login } from "../../controllers/auth.controllers.js";
+import User from "../../models/user.models.js";
+import { generateAccessToken } from "../../utils/generateToken.js";
 
 const router = express.Router();
 

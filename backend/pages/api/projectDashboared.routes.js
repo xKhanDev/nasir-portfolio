@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import { deleteProject, editProject, getProjects, uploadProject } from "../controllers/project.controllers.js";
-import upload from "../middlewares/multer.js";
-import protectRoute from "../middlewares/protectRoute.js";
+import { deleteProject, editProject, getProjects, uploadProject } from "../../controllers/project.controllers.js";
+import upload from "../../middlewares/multer.js";
+import protectRoute from "../../middlewares/protectRoute.js";
 
 const router = Router();
 
