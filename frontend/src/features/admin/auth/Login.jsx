@@ -74,8 +74,8 @@ const Login = () => {
       localStorage.setItem("admin", JSON.stringify(response.data));
       console.log(response.data);
 
-      toast.success("Login successful");
       navigate("/admin/dashboard");
+      toast.success("Login successful");
       setLoginLoading(false);
     } catch (error) {
       toast.error(error.message);
