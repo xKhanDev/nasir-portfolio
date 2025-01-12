@@ -27,7 +27,7 @@ const Dashboard = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setMessages(response?.data);
+        setMessages(Array.isArray(response?.data) ? response.data : []);
       } catch (error) {
         console.log(error);
       }

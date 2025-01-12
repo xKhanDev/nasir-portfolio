@@ -13,7 +13,7 @@ const Login = () => {
     identifier: "",
     password: "",
   });
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const connectWallet = async () => {
     setLoading(true);
@@ -48,7 +48,7 @@ const Login = () => {
       if (response.data?.error) throw new Error(response.data.error);
 
       localStorage.setItem("admin", JSON.stringify(response.data));
-      Navigate("/admin/dashboard");
+      navigate("/admin/dashboard");
       toast.success("Login successfully");
     } catch (error) {
       toast.error(error.message);
@@ -75,8 +75,7 @@ const Login = () => {
       console.log(response.data);
 
       toast.success("Login successful");
-      window.location.reload();
-      Navigate("/admin/dashboard");
+      navigate("/admin/dashboard");
       setLoginLoading(false);
     } catch (error) {
       toast.error(error.message);

@@ -6,8 +6,6 @@ import fileDeletion from "../utils/fileDeletion.js";
 export const getCertificates = async(req, res) => {
     const certificates = await Certificate.find({});
 
-    if(certificates.length === 0) return res.status(201).json({message:"No certificates found"});
-
     return res.status(200).json({certificates,message:"certificates successfully fetched"});
 };
 
