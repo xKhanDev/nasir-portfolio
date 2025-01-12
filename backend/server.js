@@ -11,11 +11,13 @@ import experienceDashboaredRouter from "./routes/ExperienceDashboared.routes.js"
 import certificateDashboaredRouter from "./routes/certificateDashboaredRouter.routes.js";
 import formRouter from "./routes/form.routes.js";
 
-const port = process.env.PORT || 8000;
+const port = 8000;
 
 const app = express();
 
-app.use(cors({ origin: "*" }));
+app.use(cors({
+    origin:"*"
+}));
 app.use(express.json());
 app.use(cookieParser());
 
