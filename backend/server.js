@@ -31,12 +31,10 @@ app.use("/dashboared/certificate", certificateDashboaredRouter);
 
 // Serve static files for the frontend
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.use(express.static(path.join(__dirname, "./frontend/dist")));
 
-// Catch-all route for SPA (Single Page Application)
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-    console.log("Resolved Path:", path.join(__dirname, "frontend", "dist", "index.html"));
 });
 
 // Start the server
