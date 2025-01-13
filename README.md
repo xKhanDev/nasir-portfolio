@@ -36,12 +36,12 @@ Follow these steps to set up the project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/full-stack-portfolio.git
+   git clone https://github.com/xKhanDev/fullstack-portiflio.git
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd full-stack-portfolio
+   cd fullstack-portiflio
    ```
 
 3. Install dependencies:
@@ -60,7 +60,7 @@ Follow these steps to set up the project locally:
    ```
 
 ## Live Preview 🌐
-Check out the live version of the application here: [Live Demo](https://your-live-demo-link.com)
+Check out the live version of the application here: [Live Demo](https://safeerxkhan.vercel.app/)
 
 ## Project Structure 📂
 ```
