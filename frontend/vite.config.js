@@ -11,5 +11,8 @@ export default defineConfig({
       "/form/": "http://localhost:5000",
     }
   },
+  build: {
+    outDir: './dist',
+  }
 })
 
